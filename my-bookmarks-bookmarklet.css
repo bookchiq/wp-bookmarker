@@ -1,0 +1,174 @@
+/*
+ * CSS for the my-bookmarks bookmarklet entry user interface
+ */
+
+* { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+body {
+    background:#fff;
+    font:12px Helvetica, Arial, sans-serif;
+    color:#020204;
+    margin:0;
+    padding:0;
+}
+.hidden {
+    display:none !important;
+}
+div.actions {
+    border-top:1px solid #373739;
+    padding:8px;
+    overflow:hidden;
+    zoom:1;
+    background: #2a292e;
+    background: -moz-linear-gradient(top,  #2a292e 0%, #201f24 70%, #020204 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#2a292e), color-stop(70%,#201f24), color-stop(100%,#020204));
+    background: -webkit-linear-gradient(top,  #2a292e 0%,#201f24 70%,#020204 100%);
+    background: -o-linear-gradient(top,  #2a292e 0%,#201f24 70%,#020204 100%);
+    background: -ms-linear-gradient(top,  #2a292e 0%,#201f24 70%,#020204 100%);
+}
+div.actions input {
+    display:block;
+    float:right;
+    color:#EAEBED;
+    font-weight:normal;
+    margin:0;
+    border-radius:5px;
+    border:1px solid #000;
+    background: #2a292e;
+    background: -moz-linear-gradient(top,  #2a292e 0%, #201f24 70%, #020204 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#2a292e), color-stop(70%,#201f24), color-stop(100%,#020204));
+    background: -webkit-linear-gradient(top,  #2a292e 0%,#201f24 70%,#020204 100%);
+    background: -o-linear-gradient(top,  #2a292e 0%,#201f24 70%,#020204 100%);
+    background: -ms-linear-gradient(top,  #2a292e 0%,#201f24 70%,#020204 100%);
+    padding:5px 11px;
+    cursor:pointer;
+}
+div.actions input:first-of-type {
+    float:left;
+}
+div.field {
+    overflow:hidden;
+    zoom:1;
+    position:relative;
+    border-top:1px solid #CBCBCB;
+    padding:8px;
+}
+div.field label {
+    width:110px;
+    position:absolute;
+    left:8px;
+    top:12px;
+    color:#bbb;
+}
+div.field input {
+    display:block;
+    width:100%;
+    padding-left:110px;
+    font-size:12px;
+    border:0;
+    -webkit-appearance:none;
+}
+div.field input:focus {
+    outline:none;
+}
+div.textarea label {
+    /* display:none; */
+}
+div.textarea {
+    min-height:100px;
+    height: 250px;
+}
+div.field textarea {
+    display:block;
+    padding-top:25px;
+    width:100%;
+    min-height:100px;
+/*    height:100%; */
+    font-size:12px;
+    border:0;
+    -webkit-appearance:none;
+    resize:none;
+}
+div.field textarea:focus {
+    outline:none;
+}
+.message {
+    padding:15px;
+    max-width:600px;
+    margin:0 auto;
+}
+.message p {
+    border-radius:5px;
+    text-align:center;
+    background:#efefef;
+    border:1px solid #ccc;
+    padding:8px 15px;
+}
+.message a {
+    color:#238FF1;
+}
+
+/*
+ * Styling for my-bookmarks plugin
+ * Make bookmarklet UI a little more like Press This
+ */
+.my_bookmarks_adminbar {
+    border-top:1px solid #373739;
+    padding:8px;
+    overflow:hidden;
+    zoom:1;
+    background: #2a292e;
+    background: -moz-linear-gradient(top,  #2a292e 0%, #201f24 70%, #020204 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#2a292e), color-stop(70%,#201f24), color-stop(100%,#020204));
+    background: -webkit-linear-gradient(top,  #2a292e 0%,#201f24 70%,#020204 100%);
+    background: -o-linear-gradient(top,  #2a292e 0%,#201f24 70%,#020204 100%);
+    background: -ms-linear-gradient(top,  #2a292e 0%,#201f24 70%,#020204 100%);
+}
+.my_bookmarks_actions {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    
+    border-top:1px solid #373739;
+    padding:8px;
+    overflow:hidden;
+    zoom:1;
+    background: #2a292e;
+    background: -moz-linear-gradient(top,  #2a292e 0%, #201f24 70%, #020204 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#2a292e), color-stop(70%,#201f24), color-stop(100%,#020204));
+    background: -webkit-linear-gradient(top,  #2a292e 0%,#201f24 70%,#020204 100%);
+    background: -o-linear-gradient(top,  #2a292e 0%,#201f24 70%,#020204 100%);
+    background: -ms-linear-gradient(top,  #2a292e 0%,#201f24 70%,#020204 100%);
+    
+}
+
+.my_bookmarks_actions input {
+    display:block;
+    float:right;
+    color:#EAEBED;
+    font-weight:normal;
+    margin:0;
+    border-radius:5px;
+    border:1px solid #000;
+    background: #2a292e;
+    background: -moz-linear-gradient(top,  #2a292e 0%, #201f24 70%, #020204 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#2a292e), color-stop(70%,#201f24), color-stop(100%,#020204));
+    background: -webkit-linear-gradient(top,  #2a292e 0%,#201f24 70%,#020204 100%);
+    background: -o-linear-gradient(top,  #2a292e 0%,#201f24 70%,#020204 100%);
+    background: -ms-linear-gradient(top,  #2a292e 0%,#201f24 70%,#020204 100%);
+    padding:5px 11px;
+    cursor:pointer;
+}
+
+
+#current-site {
+    color: #ffffff;
+}
+.current-site {
+    color: #ffffff;
+}
+
+.current-site-link,
+.current-site-name{
+    color: #ffffff;
+}

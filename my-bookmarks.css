@@ -1,0 +1,25 @@
+/*
+ * CSS for the main my-bookmarks plugin
+ */
+
+.my_bookmarks_bookmark {
+    padding-bottom: 25px;
+    border-bottom: 1px solid #ccc;
+}
+
+.my_bookmarks_tags {
+    display:block;
+}
+
+.my_bookmarks_tags a {
+    color: #777;
+}
+
+.my_bookmarks_added {
+}
+
+.my_bookmarks_visibility {
+    padding-right: 10px;
+}
+
+
