@@ -2,7 +2,7 @@
 /**
  * The template for displaying archive pages.
  *
- * @package my_bookmarks
+ * @package wp_bookmarker
  */
 
 get_header(); ?>
@@ -23,11 +23,11 @@ get_header(); ?>
 				the_post();
 				?>
 				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-					<div class="my_bookmarks_bookmark">   
+					<div class="wp_bookmarker_bookmark">   
 						<?php the_title( '<a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a>' ); ?>
 						<?php the_excerpt(); ?>
-						<span class="my_bookmarks_tags">Tagged <?php the_terms( get_the_ID(), 'bookmark_tag' ); ?></span>
-						<span class="my_bookmarks_visibility">
+						<span class="wp_bookmarker_tags">Tagged <?php the_terms( get_the_ID(), 'bookmark_tag' ); ?></span>
+						<span class="wp_bookmarker_visibility">
 							<?php
 							if ( get_post_status ( $ID ) == 'private' ) {
 								echo '<i class="fa fa-lock" aria-hidden="true"></i>' . PHP_EOL;
@@ -36,7 +36,7 @@ get_header(); ?>
 							}
 							?>
 						</span>
-						<span class="my_bookmarks_added">Saved on <?php the_time('d F Y'); ?></span>
+						<span class="wp_bookmarker_added">Saved on <?php the_time('d F Y'); ?></span>
 					</div><!-- /bookmark -->
 				</article><!-- #post-## -->
 				<?php

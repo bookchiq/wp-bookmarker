@@ -2,7 +2,7 @@
 /**
  * The template for displaying all single posts.
  *
- * @package my_bookmarks
+ * @package wp_bookmarker
  */
 
 get_header(); ?>

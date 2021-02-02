@@ -1,6 +1,6 @@
-=== My Bookmarks ===
+=== WP Bookmarker ===
 Contributors: anothercoffee
-Donate link: http://anothercoffee.net/my-bookmarks/
+Donate link: http://anothercoffee.net/wp-bookmarker/
 Tags: bookmarks, content, curation, research, tools
 Requires at least: 4.0.1
 Tested up to: 4.7
@@ -19,7 +19,7 @@ Social bookmarking services are great for saving and sharing all those useful li
 * Access your bookmarks on any device without relying on a third-party service.
 * Simple, bare-bones functionality with no unnecessary features to get in the way.
 
-For the latest instructions and more information, please see the [Plugin Homepage](http://anothercoffee.net/my-bookmarks/)
+For the latest instructions and more information, please see the [Plugin Homepage](http://anothercoffee.net/wp-bookmarker/)
 
 **Licensing**
 

@@ -3,7 +3,7 @@
 /**
  * See https://premium.wpmudev.org/blog/activate-deactivate-uninstall-hooks/
  *
- * @package my_bookmarks
+ * @package wp_bookmarker
  */
 
 if ( ! current_user_can( 'activate_plugins' ) ) {
