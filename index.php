@@ -10,7 +10,7 @@
  * Linkmarklet license: GPLv2 or later
  * Linkmarklet license URI: http://www.gnu.org/licenses/gpl-2.0.html
  *
- * @package my_bookmarks
+ * @package wp_bookmarker
  */
 
 define( 'IFRAME_REQUEST', true );
@@ -25,20 +25,20 @@ if ( ! empty( $_SERVER['SCRIPT_FILENAME'] ) ) {
 }
 
 ob_start();
-require_once preg_replace( '/wp-content.*/', 'wp-load.php', __FILE__ );
-require_once preg_replace( '/wp-content.*/', '/wp-admin/includes/admin.php', __FILE__ );
+require_once preg_replace( '/wp-content.*/', 'wp-load.php', $script_path );
+require_once preg_replace( '/wp-content.*/', '/wp-admin/includes/admin.php', $script_path );
 /** WordPress Administration Bootstrap */
-require_once preg_replace( '/wp-content.*/', '/wp-admin/admin.php', __FILE__ );
+require_once preg_replace( '/wp-content.*/', '/wp-admin/admin.php', $script_path );
 ob_end_clean();
 
 header( 'Content-Type: ' . get_option( 'html_type' ) . '; charset=' . get_option( 'blog_charset' ) );
 
-if ( ! current_user_can( 'edit_posts' ) || ! current_user_can( get_post_type_object( MY_BOOKMARKS_POST_TYPE )->cap->create_posts ) ) {
+if ( ! current_user_can( 'edit_posts' ) || ! current_user_can( get_post_type_object( WP_BOOKMARKER_POST_TYPE )->cap->create_posts ) ) {
 	wp_die( __( 'Access Denied.' ) );
 }
 
 // let's create our post
-$new_post    = get_default_post_to_edit( MY_BOOKMARKS_POST_TYPE, true );
+$new_post    = get_default_post_to_edit( WP_BOOKMARKER_POST_TYPE, true );
 $new_post_id = absint( $new_post->ID );
 
 // Set Variables
@@ -62,19 +62,19 @@ define( 'BOOKMARKLET_URL', rtrim( plugin_dir_url( __FILE__ ), '/' ) );
 /*******************
  *
  *******************/
-function acc_bookmarklet_post() {
+function wp_bookmarker_bookmarklet_post() {
 
 	global $linkmarklet_debug;
 
 	$settings = get_option( BOOKMARKLET_PREFIX . 'settings' );
 
-	// by default it'll be right now
-	$timestamp      = (int) current_time( 'timestamp' );
-	$timestamp_gmt  = (int) current_time( 'timestamp', 1 );
+	// By default it'll be right now.
+	$timestamp     = (int) current_time( 'timestamp' );
+	$timestamp_gmt = (int) current_time( 'timestamp', 1 );
 
 	$settings = get_option( BOOKMARKLET_PREFIX . 'settings' );
 
-	$new_post    = get_default_post_to_edit( MY_BOOKMARKS_POST_TYPE );
+	$new_post    = get_default_post_to_edit( WP_BOOKMARKER_POST_TYPE );
 	$new_post    = get_object_vars( $new_post );
 	$new_post_id = $new_post['ID'] = intval( $_POST['post_id'] );
 
@@ -82,10 +82,10 @@ function acc_bookmarklet_post() {
 		wp_die( __( 'You are not allowed to edit this post.' ) );
 	}
 
-	// set our category
+	// Set our category.
 	$new_post['post_category'] = ! empty( $settings['category'] ) ? intval( $settings['category'] ) : 0;
 
-	// set our post properties
+	// Set our post properties.
 	$new_post['post_title'] = isset( $_POST['title'] ) ? sanitize_text_field( $_POST['title'] ) : '';
 	$content                = isset( $_POST['content'] ) ? $_POST['content'] : '';
 
@@ -96,40 +96,43 @@ function acc_bookmarklet_post() {
 		$new_post['_cws_markdown_nonce'] = wp_create_nonce( 'cws-markdown-save' );
 	}
 
-	// set the post_content and status
+	// Set the post_content and status.
 	$new_post['post_content'] = wp_kses_post( $content );
 	$new_post['post_status']  = 'draft';
 
 	// Set the author.
 	$new_post['post_author'] = get_current_user_id();
+
+	// Set the category.
 	/* Categories currently not supported in plugin
 	$new_post['post_category'] = array_map( 'absint', array( $new_post['post_category'] ) );
 	 */
 
-	// set the slug
+	// Set the slug.
 	$new_post['post_name'] = sanitize_title( $_POST['slug'] );
 
-	// update what we've set
+	// Update what we've set.
 	$new_post_id = wp_update_post( $new_post );
 
-	// we also need to add our custom field link
-	update_post_meta( $new_post_id, MY_BOOKMARKS_URL_FIELD, esc_url( $_POST['url'] ) );
+	// We also need to add our custom field link.
+	update_post_meta( $new_post_id, WP_BOOKMARKER_URL_FIELD, esc_url( $_POST['url'] ) );
 
-	// set our post tags if applicable
+	// Set our post tags if applicable.
 	if ( ! empty( $_POST['tags'] ) ) {
-		$received_tags_array = explode( ',', $_POST['tags'] );
+		$received_tags_array = array_map( 'trim', explode( ',', $_POST['tags'] ) );
 		$tag_id_array = array();
+		foreach ( $received_tags_array as $single_tag ) {
 			if ( ! empty( $single_tag ) ) {
 				$tag = get_term_by( 'name', trim( $single_tag ), WP_BOOKMARKER_TAXONOMY );
 
 				if ( ! empty( $tag ) ) {
 					// This is a tag that already exists in our taxonomy, so go ahead and use it.
-			$tag_id_array[] = intval( $tag->term_id );
+					$tag_id_array[] = intval( $tag->term_id );
 				} elseif ( current_user_can( 'manage_categories' ) ) {
 					// The tag doesn't exist yet, so we need to first create and then assign it.
 					$new_term = wp_insert_term( trim( $single_tag ), WP_BOOKMARKER_TAXONOMY );
 					$tag_id_array[] = intval( $new_term->term_id );
-		}
+				}
 			}
 		}
 		wp_set_object_terms( $new_post_id, $tag_id_array, WP_BOOKMARKER_TAXONOMY );
@@ -145,26 +148,22 @@ function acc_bookmarklet_post() {
 	return $new_post_id;
 }
 
-/*******************
- *
- *******************/
-
 wp_enqueue_script( 'underscore' );
 wp_enqueue_script( 'jquery-ui-autocomplete' );
 wp_enqueue_style( 'jquery-ui' );
-wp_enqueue_style( 'my-bookmarks-style', untrailingslashit( plugins_url( '', __FILE__ ) ) . '/my-bookmarks-bookmarklet.css' );
+wp_enqueue_style( 'wp-bookmarker-style', untrailingslashit( plugins_url( '', __FILE__ ) ) . '/assets/wp-bookmarker-bookmarklet.css', array(), WP_BOOKMARKER_VERSION );
 ?><!doctype html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>My Bookmarks Bookmarklet</title>
+	<title>WP Bookmarker Bookmarklet</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 	<?php
 		do_action( 'admin_print_scripts' );
-		do_action('admin_head');
+		do_action( 'admin_head' );
 	?>
 	<style>
-		<?php include dirname( __FILE__ ) . '/jquery-ui.css'; ?>
+		<?php require dirname( __FILE__ ) . '/assets/jquery-ui.css'; ?>
 
 		.ui-autocomplete {
 			/* By default the list is positioned according to the field, but we want a bit different */
@@ -174,29 +173,25 @@ wp_enqueue_style( 'my-bookmarks-style', untrailingslashit( plugins_url( '', __FI
 	</style>
 </head>
 <body>
-<div id="adminbar" class="my_bookmarks_adminbar">
+<div id="adminbar" class="wp_bookmarker_adminbar">
 		<h1 id="current-site" class="current-site">
-			<a class="current-site-link" href="<?php echo get_home_url(); ?>" target="_blank" rel="home">
+			<a class="current-site-link" href="<?php home_url(); ?>" target="_blank" rel="home">
 				<span class="current-site-name"><?php echo get_bloginfo('name'); ?></span></a> <span style="font-size:smaller">Save bookmark</span>
 		</h1>
 	</div>
-	
 <?php
-	///////////////
-	// Post saved
+	// If the post was just saved, display a link to it.
 	if ( isset( $_REQUEST['_wpnonce'] ) ) {
 		check_admin_referer( BOOKMARKLET_NONCE_FIELD_REFERRER );
-		$new_posted = $new_post_id = acc_bookmarklet_post();
+		$new_post_id = wp_bookmarker_bookmarklet_post();
 
-		error_log( "Post ID: " . $new_post_id );
-		?>
+		inspect( 'Post ID', $new_post_id );
 
-		<div class="message">
-			<p>Entry posted. <a onclick="window.opener.location.replace(this.href); window.close();" href="<?php echo get_permalink( $new_posted ); ?>">View post</a></p>
-		</div>
-<?php } else { 
-	///////////////
-	// Show bookmark entry UI
+		echo '<div class="message">' . PHP_EOL;
+		echo '	<p>Entry posted. <a onclick="window.opener.location.replace(this.href); window.close();" href="<?php echo get_permalink( $new_post_id ); ?>">View post</a></p>' . PHP_EOL;
+		echo '</div>' . PHP_EOL;
+	} else {
+	// Otherwise, show the bookmark entry UI.
 	?>
 	<?php $settings = get_option( BOOKMARKLET_PREFIX . 'settings' ); ?>
 	<form action="" method="post">
@@ -231,7 +226,7 @@ wp_enqueue_style( 'my-bookmarks-style', untrailingslashit( plugins_url( '', __FI
 			<textarea name="content" id="content"><?php echo esc_textarea( $selection ); ?></textarea>
 		</div>
 
-		<div class="my_bookmarks_actions" id="row-actions">
+		<div class="wp_bookmarker_actions" id="row-actions">
 			<input type="submit" name="publish" id="publish" value="Publish" />        
 			<input type="submit" name="save" id="save" value="Save" />
 		</div>
@@ -258,13 +253,13 @@ wp_enqueue_style( 'my-bookmarks-style', untrailingslashit( plugins_url( '', __FI
 <?php //if ( !empty( $settings['support_tags'] ) ) : ?>
 <?php
 	$tags = get_terms(
-		MY_BOOKMARKS_TAXONOMY,
+		WP_BOOKMARKER_TAXONOMY,
 		array(
 			'hide_empty' => false, // do not hide empty terms
 		)
 	);
-	foreach ( $tags as $tag ) {
-		$all_tags[] = '"' . str_replace( '"', '\"', esc_js( $tag->name ) ) . '"';
+	foreach ( $tags as $single_tag ) {
+		$all_tags[] = '"' . str_replace( '"', '\"', esc_js( $single_tag->name ) ) . '"';
 	}
 
 	do_action( 'admin_footer' );
