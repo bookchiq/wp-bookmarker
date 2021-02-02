@@ -119,12 +119,20 @@ function acc_bookmarklet_post() {
 	if ( ! empty( $_POST['tags'] ) ) {
 		$received_tags_array = explode( ',', $_POST['tags'] );
 		$tag_id_array = array();
-		foreach ( $received_tags_array as $tag ) {
-			// error_log( "Tag[".$tag."]");
-			$tag = get_term_by( 'name', trim( $tag ), MY_BOOKMARKS_TAXONOMY);
+			if ( ! empty( $single_tag ) ) {
+				$tag = get_term_by( 'name', trim( $single_tag ), WP_BOOKMARKER_TAXONOMY );
+
+				if ( ! empty( $tag ) ) {
+					// This is a tag that already exists in our taxonomy, so go ahead and use it.
 			$tag_id_array[] = intval( $tag->term_id );
+				} elseif ( current_user_can( 'manage_categories' ) ) {
+					// The tag doesn't exist yet, so we need to first create and then assign it.
+					$new_term = wp_insert_term( trim( $single_tag ), WP_BOOKMARKER_TAXONOMY );
+					$tag_id_array[] = intval( $new_term->term_id );
 		}
-		wp_set_object_terms( $new_post_id, $tag_id_array, MY_BOOKMARKS_TAXONOMY );
+			}
+		}
+		wp_set_object_terms( $new_post_id, $tag_id_array, WP_BOOKMARKER_TAXONOMY );
 	}
 
 	if ( isset( $_POST['publish'] ) && current_user_can( 'publish_posts' ) ) {
