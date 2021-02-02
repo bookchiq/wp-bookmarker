@@ -18,6 +18,12 @@ define( 'WP_BOOKMARKER_URL_FIELD', 'bookmark_url' );
 define( 'BOOKMARKLET_PREFIX', '_acc_bookmarklet_' );
 define( 'BOOKMARKLET_NONCE_FIELD_REFERRER', 'wp-bookmarker-press-this' );
 
+if ( ! empty( $_SERVER['SCRIPT_FILENAME'] ) ) {
+	$script_path = $_SERVER['SCRIPT_FILENAME'];
+} else {
+	$script_path = __FILE__;
+}
+
 ob_start();
 require_once preg_replace( '/wp-content.*/', 'wp-load.php', __FILE__ );
 require_once preg_replace( '/wp-content.*/', '/wp-admin/includes/admin.php', __FILE__ );
