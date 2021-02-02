@@ -1,5 +1,5 @@
 /*
- * CSS for the my-bookmarks bookmarklet entry user interface
+ * CSS for the wp-bookmarker bookmarklet entry user interface
  */
 
 * { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
@@ -108,10 +108,10 @@ div.field textarea:focus {
 }
 
 /*
- * Styling for my-bookmarks plugin
+ * Styling for wp-bookmarker plugin
  * Make bookmarklet UI a little more like Press This
  */
-.my_bookmarks_adminbar {
+.wp_bookmarker_adminbar {
     border-top:1px solid #373739;
     padding:8px;
     overflow:hidden;
@@ -123,7 +123,7 @@ div.field textarea:focus {
     background: -o-linear-gradient(top,  #2a292e 0%,#201f24 70%,#020204 100%);
     background: -ms-linear-gradient(top,  #2a292e 0%,#201f24 70%,#020204 100%);
 }
-.my_bookmarks_actions {
+.wp_bookmarker_actions {
     position: fixed;
     bottom: 0;
     left: 0;
@@ -142,7 +142,7 @@ div.field textarea:focus {
     
 }
 
-.my_bookmarks_actions input {
+.wp_bookmarker_actions input {
     display:block;
     float:right;
     color:#EAEBED;

@@ -1,0 +1,25 @@
+/*
+ * CSS for the main wp-bookmarker plugin
+ */
+
+.wp_bookmarker_bookmark {
+    padding-bottom: 25px;
+    border-bottom: 1px solid #ccc;
+}
+
+.wp_bookmarker_tags {
+    display:block;
+}
+
+.wp_bookmarker_tags a {
+    color: #777;
+}
+
+.wp_bookmarker_added {
+}
+
+.wp_bookmarker_visibility {
+    padding-right: 10px;
+}
+
+
