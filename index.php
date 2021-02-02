@@ -14,11 +14,9 @@
  */
 
 define( 'IFRAME_REQUEST', true );
-define( 'MY_BOOKMARKS_POST_TYPE', 'bookmarks' );
-define( 'MY_BOOKMARKS_URL_FIELD', 'bookmark_url' );
-define( 'MY_BOOKMARKS_TAXONOMY', 'bookmark_tag' );
+define( 'WP_BOOKMARKER_URL_FIELD', 'bookmark_url' );
 define( 'BOOKMARKLET_PREFIX', '_acc_bookmarklet_' );
-define( 'BOOKMARKLET_NONCE_FIELD_REFERRER', 'my-bookmarks-press-this' );
+define( 'BOOKMARKLET_NONCE_FIELD_REFERRER', 'wp-bookmarker-press-this' );
 
 ob_start();
 require_once preg_replace( '/wp-content.*/', 'wp-load.php', __FILE__ );
