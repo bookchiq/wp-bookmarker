@@ -100,7 +100,8 @@ function acc_bookmarklet_post() {
 	$new_post['post_content'] = wp_kses_post( $content );
 	$new_post['post_status']  = 'draft';
 
-	// set the category
+	// Set the author.
+	$new_post['post_author'] = get_current_user_id();
 	/* Categories currently not supported in plugin
 	$new_post['post_category'] = array_map( 'absint', array( $new_post['post_category'] ) );
 	 */
