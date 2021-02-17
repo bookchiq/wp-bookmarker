@@ -1,5 +1,5 @@
 === WP Bookmarker ===
-Contributors: anothercoffee
+Contributors: bookchiq, anothercoffee
 Donate link: http://anothercoffee.net/wp-bookmarker/
 Tags: bookmarks, content, curation, research, tools
 Requires at least: 4.0.1
@@ -17,16 +17,14 @@ Social bookmarking services are great for saving and sharing all those useful li
 * Save links with notes and tags using the familiar WordPress user interface.
 * Set links to private for personal research or public for sharing with your visitors.
 * Access your bookmarks on any device without relying on a third-party service.
-* Simple, bare-bones functionality with no unnecessary features to get in the way.
 
 For the latest instructions and more information, please see the [Plugin Homepage](http://anothercoffee.net/wp-bookmarker/)
 
 **Licensing**
 
-All code is released under The MIT License (also known as the "Expat License"
-by the Free Software Foundation). Please see LICENSE.txt.
+All code is released under The MIT License (also known as the "Expat License" by the Free Software Foundation). Please see LICENSE.txt.
 
-Although this plugin has been released under a license compatible with the GPL2 as stipulated by the [WordPress guidelines](http://codex.wordpress.org/Writing_a_Plugin#File_Headers), users are encouraged to checkout the *BipCot NoGov license* from the Beastlick Internet Policy Commission Outreach Team: http://bipcot.org
+Although this plugin has been released under a license compatible with the GPL2 as stipulated by the [WordPress guidelines](http://codex.wordpress.org/Writing_a_Plugin#File_Headers), users are encouraged to check out the *BipCot NoGov license* from the Beastlick Internet Policy Commission Outreach Team: http://bipcot.org
 
 == Installation ==
 

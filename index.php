@@ -17,6 +17,9 @@ define( 'IFRAME_REQUEST', true );
 define( 'WP_BOOKMARKER_URL_FIELD', 'bookmark_url' );
 define( 'BOOKMARKLET_PREFIX', '_acc_bookmarklet_' );
 define( 'BOOKMARKLET_NONCE_FIELD_REFERRER', 'wp-bookmarker-press-this' );
+if ( ! defined( 'WP_BOOKMARKER_POST_TYPE' ) ) {
+	define( 'WP_BOOKMARKER_POST_TYPE', 'bookmarker' );
+}
 
 if ( ! empty( $_SERVER['SCRIPT_FILENAME'] ) ) {
 	$script_path = $_SERVER['SCRIPT_FILENAME'];
@@ -29,6 +32,10 @@ require_once preg_replace( '/wp-content.*/', 'wp-load.php', $script_path );
 require_once preg_replace( '/wp-content.*/', '/wp-admin/includes/admin.php', $script_path );
 /** WordPress Administration Bootstrap */
 require_once preg_replace( '/wp-content.*/', '/wp-admin/admin.php', $script_path );
+
+// Scripts for Pinterest-style image selection.
+require_once 'includes/image-picker.php';
+
 ob_end_clean();
 
 header( 'Content-Type: ' . get_option( 'html_type' ) . '; charset=' . get_option( 'blog_charset' ) );
@@ -224,6 +231,11 @@ wp_enqueue_style( 'wp-bookmarker-style', untrailingslashit( plugins_url( '', __F
 		<div class="field textarea" id="row-content">
 			<label for="content">Content</label>
 			<textarea name="content" id="content"><?php echo esc_textarea( $selection ); ?></textarea>
+		</div>
+
+		<div class="field textarea" id="row-thumbnail">
+			<label for="thumbnail">Thumbnail</label>
+			<textarea name="thumbnail" id="thumbnail"><?php echo esc_textarea( $selection ); ?></textarea>
 		</div>
 
 		<div class="wp_bookmarker_actions" id="row-actions">
