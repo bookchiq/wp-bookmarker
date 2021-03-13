@@ -5,9 +5,10 @@ require_once 'url_to_absolute/url_to_absolute.php';
 
 inspect( 'loading' );
 
-// $url = 'https://www.electrictoolbox.com/php-get-meta-tags-html-file/';
+// $url = isset( $_GET['u'] ) ? esc_url( ( $_GET['m'] ? 'https://' : 'http://' ) . $_GET['u'] ) : '';
+$url = 'http://' . $_GET['u'];
 
-// $html = file_get_html($url);
-// foreach($html->find('img') as $element) {
-// 	echo url_to_absolute($url, $element->src), "n";
-// }
+$html = file_get_html( $url );
+foreach ( $html->find( 'img' ) as $element ) {
+	inspect( url_to_absolute( $url, $element->src ) );
+}
